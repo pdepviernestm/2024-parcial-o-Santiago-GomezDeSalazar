@@ -1,9 +1,24 @@
-import example.pepita
+import parcial.*
 
-describe "group of tests for pepita" {
+describe "test de parcial"{
+    test "Grupo de personas vive un evento"{
+    const alegria1 = new Alegria(cantidadEventos = 2,intensidad = 120)
+    const ansiedad2 = new Ansiedad(cantidadEventos = 3, intensidad = 150, nivelDeAnsiedad = 80)
+    const desagrado1 = new Desagrado(cantidadEventos = 1, intensidad = 100)
+    const temor2 = new Temor (cantidadEventos = 6, intensidad = 350)
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
-  }
+    const persona1 = new Persona(edad = 18,emociones = [alegria1,desagrado1])
+    const persona2 = new Persona(edad = 17, emociones = [ansiedad2,temor2])
 
+    const grupo = new GrupoPersonas(personas = [persona1,persona2])
+
+    const evento = new Evento(impacto = 50, descripcion = "melancolia")
+
+    grupo.vivirTodosUnEvento(evento)
+    assert.That()
+
+    // NO LLEGUÉ A TERMINAR
 }
+}
+
+
