@@ -1,9 +1,21 @@
-object pepita {
-  var energy = 100
+class Persona{
+    var edad
+    var emociones = []
+    // VER LO DEL EVENTO
 
-  method energy() = energy
+    method esAdolescente() = (edad > 12) && (edad < 19)
 
-  method fly(minutes) {
-    energy = energy - minutes * 3
-  }
+    method nuevaEmocion(emocion){
+        emociones.add(emocion)
+    }
+}
+
+class Emocion{
+    var cantidadEventos
+    var property intensidad
+}
+
+class Furia inherits Emocion{
+
+    
 }
