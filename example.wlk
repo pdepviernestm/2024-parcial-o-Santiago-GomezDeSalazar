@@ -1,4 +1,4 @@
-cclass Persona{
+class Persona{
     var edad
     var emociones = []
     var intensidadElevada = 300
@@ -6,6 +6,7 @@ cclass Persona{
 
     method esAdolescente() = (edad > 12) && (edad < 19)
 
+    //PUNTO 2
     method nuevaEmocion(emocion){
         emociones.add(emocion)
     }
@@ -14,6 +15,10 @@ cclass Persona{
 
     method modificarIntensidadElevada(nuevaIntensidad){
         intensidadElevada = nuevaIntensidad
+    }
+
+    method vivirEvento(unEvento){
+        
     }
 }
 
@@ -56,9 +61,23 @@ class Furia inherits Emocion{
 
 class Alegria inherits Emocion{
 
+    method darValorIntensidad(valor){
+        const valorAbs = valor.abs()
+        intensidad = valorAbs
+    }
+
     override method puedeLiberarse(persona) = super(persona) && cantidadEventos.even()
 }
 
 class Tristeza inherits Emocion{
+    var causa = []
+    override method puedeLiberarse(persona) = super(persona) // VER LO DE MELANCOLIA
+}
+
+class Desagrado inherits Emocion{
+    override method puedeLiberarse(persona) = super(persona) && cantidadEventos > intensidad
+}
+
+class Temor inherits Desagrado{
 
 }
