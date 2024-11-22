@@ -1,7 +1,7 @@
 class Persona{
     var edad
     var emociones = []
-    var intensidadElevada = 300
+    var property intensidadElevada = 300
     // VER LO DEL EVENTO
 
     method esAdolescente() = (edad > 12) && (edad < 19)
@@ -18,21 +18,26 @@ class Persona{
     }
 
     method vivirEvento(unEvento){
-        
+        emociones.forEach{emocion => emocion.liberarse(unEvento,self)}
     }
 }
 
 class Evento{
-    var impacto
+    var property impacto
     const descripcion = []
 }
 
 class Emocion{
     var cantidadEventos
     var property intensidad 
+    var volverALiberarse = true
 
-    method liberarse(evento){
+    method liberarse(evento,persona){
+        if(self.puedeLiberarse(persona) && volverALiberarse)
+        {
         intensidad -= evento.impacto()
+        volverALiberarse = false
+        }
     }
 
     method puedeLiberarse(persona) = (persona.intensidadElevada() <= intensidad)
@@ -53,9 +58,11 @@ class Furia inherits Emocion{
 
     override method puedeLiberarse(persona) = super(persona) && palabrotas.any{palabrota => palabrota.size() > 7}
 
-    override method liberarse(evento){
-        super(evento)
+    override method liberarse(evento,persona){
+        if(self.puedeLiberarse(persona) && volverALiberarse){
+        super(evento,persona)
         self.olvidarPalabrota(palabrotas.first())
+        }
     }
 }
 
@@ -80,4 +87,16 @@ class Desagrado inherits Emocion{
 
 class Temor inherits Desagrado{
 
+}
+
+class GrupoPersonas{
+    var personas = []
+
+    method agregarPersona(unaPersona){
+        personas.add(unaPersona)
+    }
+
+    method vivirTodosUnEvento(evento){
+        personas.forEach{persona => persona.vivirEvento(evento)}
+    }
 }
