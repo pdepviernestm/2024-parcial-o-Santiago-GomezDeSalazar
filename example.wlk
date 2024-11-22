@@ -2,11 +2,9 @@ class Persona{
     var edad
     var emociones = []
     var property intensidadElevada = 300
-    // VER LO DEL EVENTO
 
     method esAdolescente() = (edad > 12) && (edad < 19)
 
-    //PUNTO 2
     method nuevaEmocion(emocion){
         emociones.add(emocion)
     }
@@ -24,13 +22,13 @@ class Persona{
 
 class Evento{
     var property impacto
-    const descripcion = []
+    const property descripcion = []
 }
 
 class Emocion{
-    var cantidadEventos
+    var property cantidadEventos
     var property intensidad 
-    var volverALiberarse = true
+    var property volverALiberarse = true
 
     method liberarse(evento,persona){
         if(self.puedeLiberarse(persona) && volverALiberarse)
@@ -77,8 +75,14 @@ class Alegria inherits Emocion{
 }
 
 class Tristeza inherits Emocion{
-    var causa = []
-    override method puedeLiberarse(persona) = super(persona) // VER LO DE MELANCOLIA
+    var causa = "melancolia"
+
+    override method liberarse(evento,persona){
+        if(self.puedeLiberarse(persona) && volverALiberarse){
+        super(evento,persona)
+        causa = evento.descripcion()
+        }
+    }
 }
 
 class Desagrado inherits Emocion{
@@ -88,6 +92,25 @@ class Desagrado inherits Emocion{
 class Temor inherits Desagrado{
 
 }
+
+class Ansiedad inherits Emocion{
+    var nivelDeAnsiedad
+
+    override method puedeLiberarse(persona) = super(persona) && nivelDeAnsiedad/2 > cantidadEventos
+
+    override method liberarse(evento,persona){
+        if(self.puedeLiberarse(persona) && volverALiberarse){
+        super(evento,persona)
+        nivelDeAnsiedad = 0
+        }
+
+    }
+}
+
+// El concepto de herencia fue útil para no repetir código, que tiene como ventaja el ahorro de tiempo y hacerlo más entendible.
+// El concepto de polimorfismo fue útil para referirse al mismo método en distintas clases (con sus respectivos cambios acorde a cada clase), lo que
+// hace que cada efecto o "return" sea particular de cada uno, además de no estar cambiando el nombre del método en cada clase.
+
 
 class GrupoPersonas{
     var personas = []
@@ -100,3 +123,4 @@ class GrupoPersonas{
         personas.forEach{persona => persona.vivirEvento(evento)}
     }
 }
+    
